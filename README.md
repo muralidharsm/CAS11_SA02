@@ -13,7 +13,7 @@ Python – Backend logic.
 Flask – API development.
 spaCy & BERT – NLP-based email classification.
 OpenAI API – AI-generated responses.
-IMAPClient & email – Fetching emails from the inbox.
+IMAPserver & email – Fetching emails from the inbox.
 SMTP – Sending replies.
 
 
