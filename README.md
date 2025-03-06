@@ -11,11 +11,12 @@ Flask API – Exposes endpoints to manage emails and automate workflows.
 Tech Stack:
 Python – Backend logic.
 Flask – API development.
-spaCy & BERT – NLP-based email classification.
+spaCy & BERT – NLP-based email spam classification.
 OpenAI API – AI-generated responses.
 IMAPserver & email – Fetching emails from the inbox.
+IMAP filtering- it is used to ignore spam message
 SMTP – Sending replies.
-
+rule based filter-to block emails based on keywords,sender domains,etc...
 
 
 
