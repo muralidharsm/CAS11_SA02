@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart AI Auto Email Responder</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background 0.3s ease;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .feature-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 22%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-box img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h2 {
+            color: #333;
+            font-size: 22px;
+        }
+
+        .feature-box p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Voice Command Section */
+        #voiceSection {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #voiceSection button {
+            background-color: #2196F3;
+            border: none;
+            padding: 10px 30px;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #voiceSection button:hover {
+            background-color: #1976D2;
+        }
+
+        #summarizeResult {
+            background: #f1f1f1;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        #summarizeResult p {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Smart AI Auto Email Responder</h1>
+
+        <!-- Feature Boxes -->
+        <div class="features">
+            <div class="feature-box">
+                <img src="https://image.shutterstock.com/image-vector/summarize-icon-vector-symbol-illustration-260nw-1730241889.jpg" alt="Summarize">
+                <h2>Summarize Emails</h2>
+                <p>AI summarizes the content of your emails automatically.</p>
+            </div>
+            <div class="feature-box">
+                <img src="https://image.shutterstock.com/image-vector/organize-icons-set-categorize-tag-email-260nw-1904741254.jpg" alt="Categorize">
+                <h2>Automatically Categorize</h2>
+                <p>Emails are classified based on categories like Work, Personal, etc.</p>
+            </div>
+            <div class="feature-box">
+                <img src="https://image.shutterstock.com/image-vector/voice-control-icon-simple-vector-260nw-1437645269.jpg" alt="Voice">
+                <h2>Live NLP Voice</h2>
+                <p>Talk to your AI bot in real-time using voice commands.</p>
+            </div>
+            <div class="feature-box">
+                <img src="https://image.shutterstock.com/image-vector/artificial-intelligence-icon-ai-bot-260nw-1273175991.jpg" alt="AI Reply">
+                <h2>Automatic AI Reply</h2>
+                <p>The AI generates and sends auto replies for emails.</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button onclick="summarizeEmail()">Summarize Email</button>
+            <button onclick="categorizeEmail()">Categorize Email</button>
+        </div>
+
+        <!-- Voice Command Section -->
+        <div id="voiceSection">
+            <button onclick="startVoiceRecognition()">Start Voice Command</button>
+        </div>
+
+        <!-- Summarized Text Display -->
+        <div id="summarizeResult">
+            <p><strong>Summary:</strong></p>
+            <p id="summaryText">Your email will appear here after summarization...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function summarizeEmail() {
+            fetch('/summarize')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('summaryText').textContent = data.summary;
+                });
+        }
+
+        function categorizeEmail() {
+            fetch('/categorize')
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.category);
+                });
+        }
+
+        // Simple Voice Recognition (uses the Web Speech API)
+        function startVoiceRecognition() {
+            var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                var command = event.results[0][0].transcript;
+                alert("You said: " + command);
+            };
+
+            recognition.onerror = function(event) {
+                alert("Error occurred in voice recognition: " + event.error);
+            };
+        }
+    </script>
+
+    <!-- Backend with Node.js (using Express) -->
+    <script>
+        // Create a simple backend server for email summarization and categorization.
+        const http = require('http');
+        const express = require('express');
+        const bodyParser = require('body-parser');
+        const app = express();
+
+        app.use(bodyParser.json());
+
+        // Example Summarization Endpoint
+        app.get('/summarize', (req, res) => {
+            res.json({ summary: "This is an auto-generated summary of the email content." });
+        });
+
+        // Example Categorization Endpoint
+        app.get('/categorize', (req, res) => {
+            res.json({ category: "This email has been automatically categorized as 'Work'." });
+        });
+
+        // Start the server
+        const port = 3000;
+        app.listen(port, () => {
+            console.log(`Server running at http://localhost:${port}`);
+        });
+    </script>
+
+</body>
+</html>
